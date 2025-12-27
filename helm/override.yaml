@@ -118,10 +118,6 @@ configOverrides:
             "Please set these in your environment or .env file."
         )
 
-    # Get Superset base URL, accounting for SUPERSET_APP_ROOT if set
-    # SUPERSET_APP_ROOT = os.environ.get('SUPERSET_APP_ROOT', '')
-    # SUPERSET_URL = os.getenv("SUPERSET_URL") or f"http://localhost:8088{SUPERSET_APP_ROOT}"
-
     # OAuth provider configuration
     # NOTE: Make sure your Keycloak client has these redirect URIs configured.
     # If SUPERSET_APP_ROOT is set (e.g., '/superset'), include it in the redirect URIs:
@@ -149,20 +145,10 @@ configOverrides:
     # Users without proper roles will be rejected
     AUTH_USER_REGISTRATION = False
 
-    # These are not used as defaults, but required by Superset
-    # AUTH_ROLE_ADMIN = "Admin"
-    # AUTH_ROLE_PUBLIC = "Public"
-
     # Session configuration
-    # SECRET_KEY = "your-secret-key-change-this-to-something-random"
+    # Note: session_cookie_secure is also set in TALISMAN_CONFIG above
+    # The Talisman setting takes precedence when Talisman is enabled
     SESSION_COOKIE_SECURE = True  # Set to True if using HTTPS
-    # SESSION_COOKIE_HTTPONLY = True
-    # SESSION_COOKIE_SAMESITE = "Lax"
-
-    # CSRF configuration
-    # WTF_CSRF_ENABLED = True
-    # WTF_CSRF_EXEMPT_LIST = ['']
-    # WTF_CSRF_TIME_LIMIT = None
 
     # Custom Security Manager
     class CustomAuthOAuthView(AuthOAuthView):
@@ -395,27 +381,7 @@ configOverrides:
             
             logger.info("Extracting roles from token/user_data...")
             
-            # Method 1: Check realm_access roles (realm-level roles)
-            # if "realm_access" in user_data:
-            #     realm_roles = user_data["realm_access"].get("roles", [])
-            #     logger.info(f"Realm roles found: {realm_roles}")
-                
-            #     # Map realm-level roles to Superset roles
-            #     if "superset-admin" in realm_roles:
-            #         roles.append("Admin")
-            #     if "superset-alpha" in realm_roles:
-            #         roles.append("Alpha")
-            #     if "superset-gamma" in realm_roles:
-            #         roles.append("Gamma")
-            #     # Also check for direct role names (in case roles are named Admin, Alpha, Gamma)
-            #     if "Admin" in realm_roles:
-            #         roles.append("Admin")
-            #     if "Alpha" in realm_roles:
-            #         roles.append("Alpha")
-            #     if "Gamma" in realm_roles:
-            #         roles.append("Gamma")
-            
-            # Method 2: Check resource_access (client-specific roles)
+            # Check resource_access (client-specific roles)
             if "resource_access" in user_data:
                 logger.info(f"resource_access keys: {list(user_data['resource_access'].keys())}")
                 
@@ -432,25 +398,6 @@ configOverrides:
                         roles.append("Alpha")
                     if "superset-gamma" in client_roles:
                         roles.append("Gamma")
-                    # Also check for direct role names
-                    if "Admin" in client_roles:
-                        roles.append("Admin")
-                    if "Alpha" in client_roles:
-                        roles.append("Alpha")
-                    if "Gamma" in client_roles:
-                        roles.append("Gamma")
-            
-            # Method 3: Check groups (if using Keycloak groups)
-            # if "groups" in user_data:
-            #     groups = user_data.get("groups", [])
-            #     logger.info(f"User groups: {groups}")
-                
-            #     if "/superset-admin" in groups or "superset-admin" in groups:
-            #         roles.append("Admin")
-            #     if "/superset-alpha" in groups or "superset-alpha" in groups:
-            #         roles.append("Alpha")
-            #     if "/superset-gamma" in groups or "superset-gamma" in groups:
-            #         roles.append("Gamma")
             
             # Remove duplicates
             roles = list(set(roles))
@@ -524,6 +471,3 @@ configOverrides:
 
     # Use custom security manager
     CUSTOM_SECURITY_MANAGER = CustomSecurityManager
-
-
-
