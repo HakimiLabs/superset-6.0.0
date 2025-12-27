@@ -1,0 +1,18 @@
+extraEnv:
+  KEYCLOAK_BASE_URL: https://login.hakimilabs.com
+  KEYCLOAK_REALM: hakimilabs
+  KEYCLOAK_CLIENT_ID: <CLIENT_ID>
+
+extraSecretEnv:
+  SUPERSET_SECRET_KEY: <SECRET_KEY>
+  KEYCLOAK_CLIENT_SECRET: <SECRET_KEY>
+
+ingress:
+  enabled: true
+  path: /analytics
+  hosts:
+    - <HOST>
+  tls:
+    - hosts:
+        - <HOST>
+      secretName: <SECRET_NAME>
