@@ -30,6 +30,17 @@ extraEnv:
   SUPERSET_APP_ROOT: /analytics
   APPLICATION_ROOT: /analytics
 
+# bootstrapScript: |
+#   #!/bin/bash
+  
+#   # Install system-level dependencies
+#   apt-get update && apt-get install -y
+#   apt-get install -y pkg-config python3-dev default-libmysqlclient-dev build-essential
+
+#   uv pip install authlib psycopg2-binary mysqlclient prophet
+
+#   if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
+
 configOverrides:
   my_override: |
     FEATURE_FLAGS = {
