@@ -403,8 +403,6 @@ configOverrides:
                     
                     if "superset-admin" in client_roles:
                         roles.append("Admin")
-                    if "alpha-readonly" in client_roles:
-                        roles.append("alpha_readonly")
                     if "superset-alpha" in client_roles:
                         roles.append("Alpha")
                     if "superset-gamma" in client_roles:

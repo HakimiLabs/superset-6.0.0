@@ -7,6 +7,10 @@ extraSecretEnv:
   SUPERSET_SECRET_KEY: <SECRET_KEY>
   KEYCLOAK_CLIENT_SECRET: <SECRET_KEY>
 
+supersetNode:
+  connections:
+    db_name: superset
+
 ingress:
   enabled: true
   path: /analytics
