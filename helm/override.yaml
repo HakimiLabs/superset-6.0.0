@@ -407,6 +407,7 @@ configOverrides:
                         roles.append("Alpha")
                     if "superset-gamma" in client_roles:
                         roles.append("Gamma")
+                        roles.append("all_datasource_access")
             
             # Remove duplicates
             roles = list(set(roles))
