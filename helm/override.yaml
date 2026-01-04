@@ -45,8 +45,16 @@ configOverrides:
   my_override: |
 
     THEME_DEFAULT = {
+        "algorithm": "default",
         "token": {
             "brandLogoUrl": "/analytics/static/assets/images/superset-logo-horiz.png",
+        },
+    }
+
+    THEME_DARK = {
+        "algorithm": "dark",
+        "token": {
+            "brandLogoUrl": "/analytics/static/assets/images/superset-logo-horiz.svg",
         },
     }
 
