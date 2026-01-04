@@ -24,5 +24,18 @@ import { applicationRoot } from 'src/utils/getBootstrapData';
  * @param path A string path to a resource
  */
 export function ensureAppRoot(path: string): string {
-  return `${applicationRoot()}${path.startsWith('/') ? path : `/${path}`}`;
+  const appRoot = applicationRoot();
+  
+  // If no app root or app root is "/", just normalize the path
+  if (!appRoot || appRoot === '/') {
+    return path.startsWith('/') ? path : `/${path}`;
+  }
+  
+  // If path already starts with the application root, return it as-is
+  if (path.startsWith(appRoot)) {
+    return path;
+  }
+  
+  // Otherwise, prefix with application root
+  return `${appRoot}${path.startsWith('/') ? path : `/${path}`}`;
 }

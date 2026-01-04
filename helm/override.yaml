@@ -54,7 +54,7 @@ configOverrides:
     THEME_DARK = {
         "algorithm": "dark",
         "token": {
-            "brandLogoUrl": "/analytics/static/assets/images/superset-logo-horiz.svg",
+            "brandLogoUrl": "/analytics/static/assets/images/superset-logo-horiz.png",
         },
     }
 

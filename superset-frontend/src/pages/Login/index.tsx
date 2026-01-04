@@ -30,6 +30,7 @@ import {
 import { useState, useMemo } from 'react';
 import { capitalize } from 'lodash/fp';
 import getBootstrapData from 'src/utils/getBootstrapData';
+import { ensureAppRoot } from 'src/utils/pathUtils';
 
 type OAuthProvider = {
   name: string;
@@ -94,7 +95,7 @@ export default function Login() {
   );
 
   const buildProviderLoginUrl = (providerName: string) => {
-    const base = `/analytics/login/${providerName}`;
+    const base = ensureAppRoot(`/login/${providerName}`);
     return nextUrl
       ? `${base}${base.includes('?') ? '&' : '?'}next=${encodeURIComponent(nextUrl)}`
       : base;
