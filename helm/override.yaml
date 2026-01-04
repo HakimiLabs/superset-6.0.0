@@ -43,6 +43,13 @@ extraEnv:
 
 configOverrides:
   my_override: |
+
+    THEME_DEFAULT = {
+        "token": {
+            "brandLogoUrl": "/analytics/static/assets/images/superset-logo-horiz.png",
+        },
+    }
+
     FEATURE_FLAGS = {
         'ENABLE_TEMPLATE_PROCESSING': True,
     }
