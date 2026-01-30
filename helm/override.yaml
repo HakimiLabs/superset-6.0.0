@@ -25,6 +25,31 @@ supersetNode:
   readinessProbe:
     httpGet:
       path: /analytics/health
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
+
+supersetWorker:
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
+
+init:
+  resources:
+    limits:
+      cpu: 250m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
 
 extraEnv:
   SUPERSET_APP_ROOT: /analytics
