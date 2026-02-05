@@ -37,7 +37,7 @@ supersetWorker:
   resources:
     limits:
       cpu: 500m
-      memory: 1Gi
+      memory: 1.5Gi
     requests:
       cpu: 100m
       memory: 512Mi
