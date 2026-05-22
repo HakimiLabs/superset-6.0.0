@@ -1,0 +1,31 @@
+docker run --privileged --rm tonistiigi/binfmt --install all
+docker buildx ls
+
+docker buildx create --name multiarch --use
+docker buildx inspect --bootstrap
+
+
+202601042
+
+
+TAG=202604281
+docker build -t asia-south1-docker.pkg.dev/jubilant-478904/jubilant/superset-6.0.0:$TAG . --target lean-custom && \
+docker push asia-south1-docker.pkg.dev/jubilant-478904/jubilant/superset-6.0.0:$TAG
+
+TAG=202602051
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t asia-south1-docker.pkg.dev/jubilant-478904/jubilant/superset-6.0.0:$TAG \
+  --target lean-custom \
+  --push .
+
+TAG=202604281
+helm upgrade --install -f helm/override.yaml -f helm/mighzalalarab-override.yaml --set image.tag=$TAG mighzalalarab-superset helm/superset
+helm upgrade --install -f helm/override.yaml -f helm/demo-override.yaml --set image.tag=$TAG demo-superset helm/superset
+helm upgrade --install -f helm/override.yaml -f helm/chips-override.yaml --set image.tag=$TAG chips-superset helm/superset
+
+
+
+superset export-dashboards
+
+kubectl cp superset-7cd5c4f6cb-9z74q:/app/dashboard_export_20251220T174448.zip ./backup/dashboard_export_20251220T174448.zip
